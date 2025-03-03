@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/posts">Posts</a></li>
+        <li><a href="/addPost">New Post</a></li>
+    </ul>
+</nav>
+
+<form id="post-form">
+    <div class="form-info">
+        <label>Post Title
+            <input type="text" name="title" value="<%= post.title %>">
+        </label>
+        <label>Author
+            <input type="text" name="author" value="<%= post.author %>">
+        </label>
+    </div>
+    <div class="form-text">
+        <label>Post Text
+            <textarea name="text"><%= post.text %></textarea>
+        </label>
+    </div>
+    <div class="form-button">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const postForm = document.querySelector('#post-form');
+        const postId = '<%= post.id %>';
+
+        if(postForm) {
+            postForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(postForm);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+
+                    const response = await fetch(`/post/posts/${postId}/edit`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log("Post updated successfully", result);
+                        window.location.href = `/post/posts/${postId}`;
+                    } else {
+                        console.error("Failed to update post", await response.json());
+                    }
+                } catch (e) {
+                    console.error("Error during request:", e);
+                }
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>

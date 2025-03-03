@@ -1,0 +1,37 @@
+[
+  {
+    "id": "25cc9c61-6998-4d5b-9c81-0f3bd29a9172",
+    "firstname": "Nano",
+    "lastname": "Nano",
+    "email": "nano@mail.ru",
+    "password": "17045158831f7b541f0fa3a57aa0f184"
+  },
+  {
+    "id": "38f35802-c907-49b0-8d0d-b791bd48fd00",
+    "firstname": "Babo",
+    "lastname": "Babo",
+    "email": "babo@mail.ru",
+    "password": "4f08057013579c36fffb6ef6c48f0c04"
+  },
+  {
+    "id": "c954339b-edea-4494-b6c2-9edc40eaaa31",
+    "firstname": "Vado",
+    "lastname": "Vado",
+    "email": "vado@mailru",
+    "password": "3abeb787708daf94422aa50ae9fcdcdb"
+  },
+  {
+    "id": "5618ba01-eb6d-41e9-aed9-6bee75fc17f0",
+    "firstname": "Davit",
+    "lastname": "Khachatryan",
+    "email": "dav@mail.ru",
+    "password": "c49fc77e650af5cecebb95b271728170"
+  },
+  {
+    "id": "7245183e-8dd2-4ee9-9f48-1e067364884c",
+    "firstname": "bb",
+    "lastname": "bb",
+    "email": "bb@mail.ru",
+    "password": "eee118a6fa4d9906f010c0272ce57947"
+  }
+]

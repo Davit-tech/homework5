@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+<%- include("./partials/nav.ejs") %>
+
+<h4>Edit Profile</h4>
+
+<form action="/user/updateUserProfile" method="POST">
+    <label for="firstname">First Name:</label>
+    <input type="text" name="firstname" value="<%= user.firstname %>" required />
+    <br />
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" name="lastname" value="<%= user.lastname %>" required />
+    <br />
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" value="<%= user.email %>" required />
+    <br />
+
+    <button type="submit">Update Profile</button>
+</form>
+
+</body>
+</html>

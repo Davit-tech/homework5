@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+<%- include("./partials/nav.ejs") %>
+
+<h1>Users List</h1>
+
+<% if (users && users.length > 0) { %>
+
+    <ul>
+        <% users.forEach(user => { %>
+        <article>
+            <li>
+                <p>Last name: <%= user.lastname %></p> <p>First name: <%= user.firstname %></p> <p> Email: <%= user.email %></p>
+                <a href="/user/<%= user.email %>">View Profile</a>
+                <br>
+                <a href="/post/posts/<%= user.id %>">View  user Posts</a>
+
+
+            </li>
+        </article>
+
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>No users found.</p>
+<% } %>
+
+
+<% if (currentUser) { %>
+    <a href="/user/<%= currentUser.email %>">Go to my profile</a>
+<% } else { %>
+    <p>Please log in to view your profile.</p>
+<% } %>
+
+</body>
+</html>

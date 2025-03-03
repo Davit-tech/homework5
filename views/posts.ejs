@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %>
+
+<body>
+
+<h1>Posts:</h1>
+
+<%- include('./partials/nav.ejs') %>
+
+<ul>
+    <% if (posts.length) { %>
+        <% posts.forEach(({id, title, text, author}) => { %>
+            <li>
+                <article>
+                    <h2>
+                        <a href="/post/posts/<%= id %>">Title :<%= title %></a>
+                    </h2>
+                    <p>Description :<%= text %></p>
+                    <div class="info">
+                        <span>Author :<%= author %></span>
+                    </div>
+                    <button class="btn-delete" data-id="<%= id %>">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </article>
+            </li>
+        <% }) %>
+    <% } %>
+</ul>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const postId = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this post?')) {
+                    fetch(`/post/posts/${postId}`, {
+                        method: 'DELETE',
+                    })
+                        .then(response => {
+                            if (response.status === 204) {
+                                window.location.href = `/post/posts`;
+                            } else {
+                                alert("Error deleting post.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error deleting post.');
+                        });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

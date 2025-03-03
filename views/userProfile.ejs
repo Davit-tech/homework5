@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+
+<body>
+<%- include("./partials/nav.ejs") %>
+
+
+<a href="/user/editProfile">
+    Edit Profile
+</a>
+
+<% if (user) { %>
+
+
+    <h4><%= user.firstname %>  Profile</h4>
+
+
+    <p><strong>First Name:</strong> <%= user.firstname %></p>
+    <p><strong>Last Name:</strong> <%= user.lastname %></p>
+    <p><strong>Email:</strong> <%= user.email %></p>
+
+<% } else { %>
+    <p>User not found.</p>
+<% } %>
+
+<!--<a href="/user/users">Back to Users List</a>-->
+
+</body>
+</html>
