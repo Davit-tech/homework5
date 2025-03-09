@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import {generateMD5Hash} from "../utils/helpers.js";
+import helpers from "../utils/helpers.js";
 import {v4 as uuidv4} from "uuid";
 import createError from "http-errors";
 
@@ -12,9 +12,8 @@ export default {
     },
     register: async (req, res, next) => {
         const {firstname, lastname, email, password} = req.body;
-        const hash = generateMD5Hash(generateMD5Hash(password));
-        console.log("Registration hash:", hash);
-        console.log(req.body);
+
+
         let users = [];
 
         try {
@@ -26,20 +25,22 @@ export default {
 
         const existingUsers = users.find((user) => user.email === email);
         if (existingUsers) {
-            return next(
-                createError(
-                    400,
-                    "User with this email already exists. Please try another one"
-                )
-            );
+            res.status(422).json({
+                success: false,
+                message: "User with this email already exists. Please try another one",
+                messageType: "error",
+
+            })
+            ;
+
         }
         const userId = uuidv4();
-        const newUser = {id: userId, firstname, lastname, email, password: hash};
+        const newUser = {id: userId, firstname, lastname, email, password: helpers.passwordHash(password)};
         users.push(newUser);
 
         try {
             await fs.writeFile(usersFile, JSON.stringify(users, null, 2), "utf8");
-            req.session.userId = userId;
+
             res.status(200).json({
                 success: true,
                 message: "Registration successful!",

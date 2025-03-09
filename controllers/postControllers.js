@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import createError from "http-errors";
+import { v4 as uuidv4 } from 'uuid';
 
 const postsFile = "./public/posts/posts.json";
 
@@ -52,12 +53,12 @@ export default {
             return next(createError(500, "Error reading posts file"));
         }
 
-        const userId = req.session?.user?.id;
+const userId = uuidv4();
         const newPost = {id: userId, title, author, text};
         posts.push(newPost);
         try {
             await fs.writeFile(postsFile, JSON.stringify(posts, null, 2), "utf8");
-            res.redirect("posts");
+            res.redirect("/post/posts");
         } catch (error) {
             console.error("Error saving post:", error);
             return next(createError(500, "Error saving post"));
