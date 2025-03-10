@@ -31,11 +31,11 @@ export default {
                 messageType: "error",
 
             })
-            ;
+            return;
 
         }
-        const userId = uuidv4();
-        const newUser = {id: userId, firstname, lastname, email, password: helpers.passwordHash(password)};
+
+        const newUser = { id: uuidv4(), firstname, lastname, email, password: helpers.passwordHash(password)};
         users.push(newUser);
 
         try {

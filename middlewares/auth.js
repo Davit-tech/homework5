@@ -3,6 +3,11 @@ import helpers from "../utils/helpers.js";
 
 export default async (req, res, next) => {
     const token = req.headers.token || null;
+    console.log("headers", req.headers);
+    console.log("token", req.headers.token);
+
+
+
 
     if (!token) {
         res.status(401).json({

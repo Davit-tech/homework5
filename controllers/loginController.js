@@ -11,7 +11,7 @@ export default {
     },
 
     login: async (req, res, next) => {
-        const {email, password} = req.body;
+        const {userId, password, email} = req.body;
 
         let users = [];
         try {
@@ -22,43 +22,43 @@ export default {
             return next(createError(500, "Server error. Please try again later."));
         }
 
-        const user = users.find((user) => user.email === email);
-        if (!user) {
-            return res.status(422).json({
+        const ifExist = users.find((user) => user.email === email);
+        if (!ifExist) {
+            res.status(422).json({
                 message: "User not found",
                 success: false,
                 messageType: "error",
             });
+            return;
         }
 
-        if (user.password !== helpers.passwordHash(password)) {
-            return res.status(401).json({
-                success: false,
-                messageType: "error",
-                message: "Wrong password",
-            });
-        }
-
-        try {
+        if (ifExist.password === helpers.passwordHash(password)) {
             const expiresIn = moment().add(10, "minutes").toISOString();
-            const token = helpers.encrypt({userId: user.id, expiresIn});
-
-            return res.status(200).json({
+            const token = helpers.encrypt({
+                userId: ifExist.id,
+                expiresIn,
+            });
+             res.status(200).json({
+                 token: token,
+                 expiresIn,
                 success: true,
                 message: "Login successful!",
                 messageType: "success",
-                token,
-                expiresIn,
-                user: {
-                    id: user.id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    email: user.email,
-                },
+                 userId: ifExist.id
+
+
             });
-        } catch (error) {
-            console.error("Encryption error:", error);
-            return next(createError(500, "Token generation failed."));
+             return
+
         }
+
+
+
+
+        return res.status(401).json({
+            success: false,
+            messageType: "error",
+            message: "Wrong password",
+        });
     },
 };

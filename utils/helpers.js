@@ -2,11 +2,15 @@ import CryptoJS from "crypto-js";
 import md5 from "md5";
 import dotenv from "dotenv";
 dotenv.config();
-const {USER_PASSWORD_SECRET, USER_AUTH_SECRET} = process.env;
 
+
+const { USER_PASSWORD_SECRET, USER_AUTH_SECRET } = process.env;
 
 console.log("USER_PASSWORD_SECRET:", process.env.USER_PASSWORD_SECRET);
 console.log("USER_AUTH_SECRET:", process.env.USER_AUTH_SECRET);
+
+
+
 
 export default {
     passwordHash(password) {
@@ -22,3 +26,4 @@ export default {
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
 }
+

@@ -19,12 +19,15 @@ if (loginForm) {
             const result = await response.json();
 
             if (result.success) {
+                localStorage.setItem("token", result.token);
+
                 if (messageContainer) {
                     messageContainer.classList.add("success-message");
                     messageContainer.innerHTML = result.message;
-
+                     const userId = result.userId;
                     setTimeout(() => {
-                        window.location.href = `/user/${data.email}`;
+                        window.location.href = `/user/${userId}`;
+
                     }, 1000);
                 }
             } else {

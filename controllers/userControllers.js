@@ -21,7 +21,7 @@ export default {
     },
 
     getUserProfile: async (req, res, next) => {
-        const {email} = req.params;
+        const {id} = req.params;
 
         let users = [];
         try {
@@ -31,7 +31,7 @@ export default {
             return next(createError(500, "Server error"));
         }
 
-        const user = users.find((user) => user.email === email);
+        const user = users.find((user) => user.id === id);
         if (!user) {
             return next(createError(404, "User not found"));
         }
